@@ -66,3 +66,14 @@ choco push -h
 # eg: velero.1.4.0.nupkg exists in current folder
 choco push velero.1.4.0.nupkg --source https://push.chocolatey.org/
 ```
+
+## Wait for automated review comments
+
+Once you submit the package, Chocolatey will run automated Validation and Verification tests.
+
+You may receive comments like the following:
+
+- The iconUrl should be added if there is one. Please correct this in the nuspec, if applicable.
+- The licenseUrl should be added if there is one. Please correct this in the nuspec, if applicable.
+
+Make the suggested changes, then create a new NuGet package and publish as before, ensuring you use the same version.
