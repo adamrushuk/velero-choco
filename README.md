@@ -44,7 +44,7 @@ choco pack -h
 choco pack
 ```
 
-## Test local install
+## Test local install / uninstall
 
 ```powershell
 # view help
@@ -53,6 +53,9 @@ choco install -h
 # install from local Nuget package
 # eg: velero.1.4.0.nupkg exists in current folder
 choco install velero --source .
+
+# uninstall
+choco uninstall velero
 ```
 
 ## Publish NuGet package to Chocolatey
