@@ -3,9 +3,9 @@
   <metadata>
     <id>velero</id>
     <version>1.4.0</version>
-    <title>velero</title>
+    <title>velero cli</title>
     <authors>vmware-tanzu</authors>
-    <owners>vmware-tanzu</owners>
+    <owners>Adam Rush</owners>
     <licenseUrl>https://github.com/vmware-tanzu/velero/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://velero.io/</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/adamrushuk/velero-choco/master/velero-icon.png</iconUrl>
