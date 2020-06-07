@@ -1,3 +1,5 @@
+![Velero Logo](velero-icon.png "Velero Logo")
+
 # velero-choco
 
 Creates a Chocolatey package for Velero CLI.
