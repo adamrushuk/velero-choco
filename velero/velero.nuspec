@@ -3,7 +3,7 @@
   <metadata>
     <id>velero</id>
     <version>1.4.0</version>
-    <title>velero cli</title>
+    <title>Velero CLI</title>
     <authors>vmware-tanzu</authors>
     <owners>Adam Rush</owners>
     <licenseUrl>https://github.com/vmware-tanzu/velero/blob/master/LICENSE</licenseUrl>
