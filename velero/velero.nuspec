@@ -6,7 +6,9 @@
     <title>velero</title>
     <authors>vmware-tanzu</authors>
     <owners>vmware-tanzu</owners>
-    <projectUrl>https://github.com/vmware-tanzu/velero</projectUrl>
+    <licenseUrl>https://github.com/vmware-tanzu/velero/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://velero.io/</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/adamrushuk/velero-choco/master/velero-icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Velero (formerly Heptio Ark) gives you tools to back up and restore your Kubernetes cluster resources and persistent volumes. You can run Velero with a public cloud platform or on-premises. Velero lets you:
 
@@ -19,7 +21,14 @@ Velero consists of:
 * A server that runs on your cluster
 * A command-line client that runs locally</description>
     <summary>Backup and migrate Kubernetes applications and their persistent volumes</summary>
+    <releaseNotes>https://github.com/vmware-tanzu/velero/releases</releaseNotes>
+    <copyright>(c) 2020 Velero Authors</copyright>
     <tags>velero kubernetes backup disaster-recovery
 </tags>
+    <projectSourceUrl>https://github.com/vmware-tanzu/velero</projectSourceUrl>
+    <packageSourceUrl>https://github.com/adamrushuk/velero-choco</packageSourceUrl>
+    <docsUrl>https://velero.io/docs/</docsUrl>
+    <mailingListUrl>https://groups.google.com/forum/#!forum/projectvelero</mailingListUrl>
+    <bugTrackerUrl>https://github.com/vmware-tanzu/velero/issues</bugTrackerUrl>
   </metadata>
 </package>

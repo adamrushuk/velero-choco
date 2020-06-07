@@ -52,7 +52,7 @@ choco install -h
 
 # install from local Nuget package
 # eg: velero.1.4.0.nupkg exists in current folder
-choco install velero -s .
+choco install velero --source .
 ```
 
 ## Publish NuGet package to Chocolatey
