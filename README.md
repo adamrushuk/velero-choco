@@ -25,14 +25,19 @@ Search for the Windows binary, named `velero-v<VERSION>-windows-amd64.tar.gz`
 choco new -h
 
 # create new velero package files
-choco new --name velero --version=1.4.0 --maintainer="Adam Rush"
+choco new --name velero --version=1.4.2 --maintainer="Adam Rush"
 ```
 
 ## Modify package files
 
-1. Move into package folder: `cd velero`
-1. Edit the `velero.nuspec` configuration file.
-1. Edit the `./tools/chocolateyInstall.ps1` install script.
+1. Move into package folder:
+
+   ```powershell
+   cd velero
+   ```
+
+1. Edit the `velero.nuspec` configuration file, ensuring correct `<version>` and other metadata.
+1. Edit the `./tools/chocolateyInstall.ps1` install script, ensuring correct `checksum64` and `url64bit`.
 
 ## Create NuGet package
 
@@ -51,8 +56,11 @@ choco pack
 choco install -h
 
 # install from local Nuget package
-# eg: velero.1.4.0.nupkg exists in current folder
+# eg: velero.1.4.2.nupkg exists in current folder
 choco install velero --source .
+
+# check version
+velero version --client-only
 
 # uninstall
 choco uninstall velero
@@ -68,8 +76,8 @@ choco apikey --key <YOUR_API_KEY> --source https://push.chocolatey.org/
 choco push -h
 
 # publish Nuget package
-# eg: velero.1.4.0.nupkg exists in current folder
-choco push velero.1.4.0.nupkg --source https://push.chocolatey.org/
+# eg: velero.1.4.2.nupkg exists in current folder
+choco push velero.1.4.2.nupkg --source https://push.chocolatey.org/
 ```
 
 ## Wait for automated review comments
