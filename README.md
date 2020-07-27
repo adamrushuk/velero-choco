@@ -72,7 +72,7 @@ choco uninstall velero
 ## Publish NuGet package to Chocolatey
 
 ```powershell
-# Copy your API Key from the My Account page: https://chocolatey.org/account/
+# copy your API Key from the My Account page: https://chocolatey.org/account/
 choco apikey --key <YOUR_API_KEY> --source https://push.chocolatey.org/
 
 # view help
@@ -81,6 +81,11 @@ choco push -h
 # publish Nuget package
 # eg: velero.1.4.2.nupkg exists in current folder
 choco push velero.1.4.2.nupkg --source https://push.chocolatey.org/
+
+# [OPTIONAL]
+# once a package is approved, it's immutable, therefore you cannot push this same version.
+# push a fixed version with version number 1.4.2.20200727 to publish fixes, eg:
+choco push velero.1.4.2.20200727.nupkg --source https://push.chocolatey.org/
 ```
 
 ## Wait for automated review comments
