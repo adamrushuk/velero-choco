@@ -59,6 +59,9 @@ choco install -h
 # eg: velero.1.4.2.nupkg exists in current folder
 choco install velero --source .
 
+# [OPTIONAL] test upgrade if previous version is already installed
+choco upgrade velero --source .
+
 # check version
 velero version --client-only
 

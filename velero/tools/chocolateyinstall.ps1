@@ -14,6 +14,9 @@ $packageArgs = @{
   url64bit       = 'https://github.com/vmware-tanzu/velero/releases/download/v1.4.2/velero-v1.4.2-windows-amd64.tar.gz'
 }
 
+# Cleanup previous installs
+Remove-Item -Path "$toolsDir\*" -Recurse -Force
+
 # Download archived binary
 Install-ChocolateyZipPackage @packageArgs
 
