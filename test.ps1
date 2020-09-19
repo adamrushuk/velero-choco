@@ -24,8 +24,10 @@ Write-Output "`nTESTING: Package version output..."
 $versionOutput = velero version --client-only | Out-String
 if ((-not $?) -and $ErrorActionPreference -eq "Stop") { exit $LastExitCode } # external command error check
 
+Write-Output $versionOutput
+
 if ($versionOutput -match $version) {
-    Write-Output "Package version output contained expected version [$version]"
+    Write-Output "`nPackage version output contained expected version [$version]"
 } else {
     throw "ERROR: Package version output doesn't contain expected version [$version]"
 }
