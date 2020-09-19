@@ -26,7 +26,7 @@ jobs:
       - name: Test NuGet Package
         env:
           CHOCO_PACKAGE_NAME: ${{ env.CHOCO_PACKAGE_NAME }}
-        run: ./test.ps1
+        run: ./../test.ps1
         working-directory: ${{ env.CHOCO_PACKAGE_NAME }}
 
       - name: Publish NuGet Package
