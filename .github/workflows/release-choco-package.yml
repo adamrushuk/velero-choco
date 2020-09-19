@@ -36,5 +36,5 @@ jobs:
           choco apikey --key ${{ secrets.CHOCOLATEY_API_KEY }} --source ${{ env.NUGET_SOURCE }}
 
           # push package
-          Write-Output "Pushing version [] to [${{ env.NUGET_SOURCE }}]..."
-          # choco push -y ${{ env.CHOCO_PACKAGE_NAME }}.$($version).nupkg --source ${{ env.NUGET_SOURCE }}
+          Write-Output "Pushing version [$version] to [${{ env.NUGET_SOURCE }}]..."
+          choco push -y ${{ env.CHOCO_PACKAGE_NAME }}.$($version).nupkg --source ${{ env.NUGET_SOURCE }}
