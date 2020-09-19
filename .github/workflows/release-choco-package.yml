@@ -1,0 +1,32 @@
+name: Release Chocolatey Package
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release-choco-package:
+    # https://github.com/actions/virtual-environments
+    runs-on: windows-2019
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Create NuGet Package
+        run: choco pack
+
+      - name: Test NuGet Package
+        run: ./test.ps1
+
+      - name: Publish NuGet Package
+        run: |
+          # get version
+          [xml]$spec = Get-Content velero.nuspec
+          $version = $spec.package.metadata.version
+
+          # set api key
+          choco apikey --key ${{ secrets.CHOCOLATEY_API_KEY }} --source ${{ env.NUGET_SOURCE }}
+
+          # push package
+          # choco push velero.<SEMANTIC_VERSION>.20200727.nupkg --source https://push.chocolatey.org/

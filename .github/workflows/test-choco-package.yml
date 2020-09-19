@@ -1,0 +1,21 @@
+name: Test Chocolatey Package
+
+on: pull_request
+
+env:
+  # publish packages to this url
+  NUGET_SOURCE: https://push.chocolatey.org/
+
+jobs:
+  test-choco-package:
+    # https://github.com/actions/virtual-environments
+    runs-on: windows-2019
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Create NuGet Package
+        run: choco pack
+
+      - name: Test NuGet Package
+        run: ./test.ps1
