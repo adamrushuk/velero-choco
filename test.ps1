@@ -19,8 +19,12 @@ choco install -y --no-progress $ChocoPackageName -source .
 if ((-not $?) -and $ErrorActionPreference -eq "Stop") { exit $LastExitCode } # external command error check
 
 Write-Output "`nTESTING: Package version output..."
-velero version --client-only
+$versionOutput = velero version --client-only | Out-String
 if ((-not $?) -and $ErrorActionPreference -eq "Stop") { exit $LastExitCode } # external command error check
+
+if ($versionOutput -notmatch $version) {
+    throw "ERROR: Package version output doesn't contain expected version [$version]"
+}
 
 Write-Output "`nTESTING: Uninstallation of package should work..."
 choco uninstall -y $ChocoPackageName -source .
