@@ -15,9 +15,10 @@ Write-Output "Running tests..."
 Write-Output "TEST: NuGet Package should contain [$expectedZipEntries] entries..."
 Add-Type -assembly "system.io.compression.filesystem"
 $zip = [IO.Compression.ZipFile]::OpenRead("$pwd\$($chocoPackageName).$version.nupkg")
+$zipEntryCount = $zip.Entries.Count
 
-Write-Output "[$zip.Entries.Count] zip entries found."
-if ($zip.Entries.Count -ne $expectedZipEntries) {
+Write-Output "[$zipEntryCount] zip entries found."
+if ($zipEntryCount -ne $expectedZipEntries) {
     Write-Error "FAIL: Wrong count in nupkg!"
 }
 $zip.Dispose()
