@@ -14,16 +14,16 @@ $version = $spec.package.metadata.version
 
 Write-Output "STARTING tests..."
 
-Write-Output "\nTESTING: Installation of package should work..."
+Write-Output "`nTESTING: Installation of package should work..."
 choco install -y $ChocoPackageName -source . -version $version
 if ((-not $?) -and $ErrorActionPreference -eq "Stop") { exit $LastExitCode } # external command error check
 
-Write-Output "\nTESTING: Package version output..."
+Write-Output "`nTESTING: Package version output..."
 velero version --client-only
 if ((-not $?) -and $ErrorActionPreference -eq "Stop") { exit $LastExitCode } # external command error check
 
-Write-Output "\nTESTING: Uninstallation of package should work..."
+Write-Output "`nTESTING: Uninstallation of package should work..."
 choco uninstall -y $ChocoPackageName -source .
 if ((-not $?) -and $ErrorActionPreference -eq "Stop") { exit $LastExitCode } # external command error check
 
-Write-Output "\nFINISHED: tests."
+Write-Output "`nFINISHED: tests."
