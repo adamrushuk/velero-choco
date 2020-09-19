@@ -16,9 +16,12 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Create NuGet Package
-        run: choco pack -y
+        run: |
+          cd ${{ env.CHOCO_PACKAGE_NAME }}
+          choco pack -y
 
       - name: Test NuGet Package
         env:
           CHOCO_PACKAGE_NAME: ${{ env.CHOCO_PACKAGE_NAME }}
-        run: ./test.ps1
+        run: ./../test.ps1
+        working-directory: ${{ env.CHOCO_PACKAGE_NAME }}
