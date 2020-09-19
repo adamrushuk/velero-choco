@@ -3,6 +3,7 @@ name: Test Chocolatey Package
 on: pull_request
 
 env:
+  CHOCO_PACKAGE_NAME: velero
   # publish packages to this url
   NUGET_SOURCE: https://push.chocolatey.org/
 
@@ -18,4 +19,6 @@ jobs:
         run: choco pack -y
 
       - name: Test NuGet Package
+        env:
+          CHOCO_PACKAGE_NAME: ${{ env.CHOCO_PACKAGE_NAME }}
         run: ./test.ps1
