@@ -37,4 +37,4 @@ jobs:
 
           # push package
           Write-Output "Pushing version [$version] to [${{ env.NUGET_SOURCE }}]..."
-          # choco push -y ${{ env.CHOCO_PACKAGE_NAME }}.$($version).nupkg --source ${{ env.NUGET_SOURCE }}
+          choco push -y ${{ env.CHOCO_PACKAGE_NAME }}.$($version).nupkg --source ${{ env.NUGET_SOURCE }}
