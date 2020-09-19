@@ -5,14 +5,17 @@ $ErrorActionPreference = 'Stop'
 
 # vars
 $packageName = 'velero'
-$toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
+$toolsDir = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 $packageArgs = @{
-  checksum64    = 'bc4e9d59929156af599e6899494f414a38233b146003083143d8422602340c6b'
-  checksumType64= 'sha256'
-  packageName   = $packageName
-  unzipLocation = $toolsDir
-  url64bit      = 'https://github.com/vmware-tanzu/velero/releases/download/v1.4.0/velero-v1.4.0-windows-amd64.tar.gz'
+  checksum64     = 'dc0badbf1b305a05ea0390b9b0e36ed0293232d669d7745b9149749764cfde1f'
+  checksumType64 = 'sha256'
+  packageName    = $packageName
+  unzipLocation  = $toolsDir
+  url64bit       = 'https://github.com/vmware-tanzu/velero/releases/download/v1.4.2/velero-v1.4.2-windows-amd64.tar.gz'
 }
+
+# Cleanup previous installs
+Remove-Item -Path "$toolsDir\*" -Recurse -Force
 
 # Download archived binary
 Install-ChocolateyZipPackage @packageArgs

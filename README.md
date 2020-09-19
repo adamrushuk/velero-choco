@@ -25,14 +25,13 @@ Search for the Windows binary, named `velero-v<VERSION>-windows-amd64.tar.gz`
 choco new -h
 
 # create new velero package files
-choco new --name velero --version=1.4.0 --maintainer="Adam Rush"
+choco new --name velero --version=<SEMANTIC_VERSION> --maintainer="Adam Rush"
 ```
 
 ## Modify package files
 
-1. Move into package folder: `cd velero`
-1. Edit the `velero.nuspec` configuration file.
-1. Edit the `./tools/chocolateyInstall.ps1` install script.
+1. Edit the `velero.nuspec` configuration file, ensuring correct `<version>` and other metadata.
+1. Edit the `./tools/chocolateyInstall.ps1` install script, ensuring correct `checksum64` and `url64bit`.
 
 ## Create NuGet package
 
@@ -51,8 +50,14 @@ choco pack
 choco install -h
 
 # install from local Nuget package
-# eg: velero.1.4.0.nupkg exists in current folder
+# eg: velero.<SEMANTIC_VERSION>.nupkg exists in current folder
 choco install velero --source .
+
+# [OPTIONAL] test upgrade if previous version is already installed
+choco upgrade velero --source .
+
+# check version
+velero version --client-only
 
 # uninstall
 choco uninstall velero
@@ -61,15 +66,20 @@ choco uninstall velero
 ## Publish NuGet package to Chocolatey
 
 ```powershell
-# Copy your API Key from the My Account page: https://chocolatey.org/account/
+# copy your API Key from the My Account page: https://chocolatey.org/account/
 choco apikey --key <YOUR_API_KEY> --source https://push.chocolatey.org/
 
 # view help
 choco push -h
 
 # publish Nuget package
-# eg: velero.1.4.0.nupkg exists in current folder
-choco push velero.1.4.0.nupkg --source https://push.chocolatey.org/
+# eg: velero.<SEMANTIC_VERSION>.nupkg exists in current folder
+choco push velero.<SEMANTIC_VERSION>.nupkg --source https://push.chocolatey.org/
+
+# [OPTIONAL]
+# once a package is approved, it's immutable, therefore you cannot push this same version.
+# push a fixed version with version number <SEMANTIC_VERSION>.20200727 to publish fixes, eg:
+choco push velero.<SEMANTIC_VERSION>.20200727.nupkg --source https://push.chocolatey.org/
 ```
 
 ## Wait for automated review comments
