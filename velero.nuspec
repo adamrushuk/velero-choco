@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>velero</id>
-    <version>1.4.2.20200727</version>
+    <version>1.5.1</version>
     <title>Velero CLI</title>
     <authors>vmware-tanzu</authors>
     <owners>Adam Rush</owners>
@@ -23,8 +23,7 @@ Velero consists of:
     <summary>Backup and migrate Kubernetes applications and their persistent volumes</summary>
     <releaseNotes>https://github.com/vmware-tanzu/velero/releases</releaseNotes>
     <copyright>(c) 2020 Velero Authors</copyright>
-    <tags>velero kubernetes backup disaster-recovery
-</tags>
+    <tags>velero kubernetes backup disaster-recovery</tags>
     <projectSourceUrl>https://github.com/vmware-tanzu/velero</projectSourceUrl>
     <packageSourceUrl>https://github.com/adamrushuk/velero-choco</packageSourceUrl>
     <docsUrl>https://velero.io/docs/</docsUrl>

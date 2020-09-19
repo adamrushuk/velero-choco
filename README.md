@@ -25,7 +25,7 @@ Search for the Windows binary, named `velero-v<VERSION>-windows-amd64.tar.gz`
 choco new -h
 
 # create new velero package files
-choco new --name velero --version=<SEMANTIC_VERSION> --maintainer="Adam Rush"
+choco new --name velero --version=<VERSION> --maintainer="Adam Rush"
 ```
 
 ## Modify package files
@@ -50,7 +50,7 @@ choco pack
 choco install -h
 
 # install from local Nuget package
-# eg: velero.<SEMANTIC_VERSION>.nupkg exists in current folder
+# eg: velero.<VERSION>.nupkg exists in current folder
 choco install velero --source .
 
 # [OPTIONAL] test upgrade if previous version is already installed
@@ -73,13 +73,13 @@ choco apikey --key <YOUR_API_KEY> --source https://push.chocolatey.org/
 choco push -h
 
 # publish Nuget package
-# eg: velero.<SEMANTIC_VERSION>.nupkg exists in current folder
-choco push velero.<SEMANTIC_VERSION>.nupkg --source https://push.chocolatey.org/
+# eg: velero.<VERSION>.nupkg exists in current folder
+choco push velero.<VERSION>.nupkg --source https://push.chocolatey.org/
 
 # [OPTIONAL]
 # once a package is approved, it's immutable, therefore you cannot push this same version.
-# push a fixed version with version number <SEMANTIC_VERSION>.20200727 to publish fixes, eg:
-choco push velero.<SEMANTIC_VERSION>.20200727.nupkg --source https://push.chocolatey.org/
+# push a fixed version by appending the date (velero.<VERSION>.<DATE>.nupkg), eg:
+choco push velero.1.5.1.20200919.nupkg --source https://push.chocolatey.org/
 ```
 
 ## Wait for automated review comments
