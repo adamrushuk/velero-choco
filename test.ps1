@@ -15,7 +15,7 @@ $version = $spec.package.metadata.version
 Write-Output "STARTING tests..."
 
 Write-Output "`nTESTING: Installation of package should work..."
-choco install -y $ChocoPackageName -source . -version $version
+choco install -y $ChocoPackageName -source .
 if ((-not $?) -and $ErrorActionPreference -eq "Stop") { exit $LastExitCode } # external command error check
 
 Write-Output "`nTESTING: Package version output..."
