@@ -7,11 +7,11 @@ $ErrorActionPreference = 'Stop'
 $packageName = 'velero'
 $toolsDir = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 $packageArgs = @{
-  checksum64     = '92003b547c5ff289cf0a6ea1b13dceb638a3c2fb64632dedbfbd0d0a6fee51ba'
+  checksum64     = 'b18c1a5156b2cd45fe87082ee9b5a83546b2a68c41198f709b4207a28135b45c'
   checksumType64 = 'sha256'
   packageName    = $packageName
   unzipLocation  = $toolsDir
-  url64bit       = 'https://github.com/vmware-tanzu/velero/releases/download/v1.5.2/velero-v1.5.2-windows-amd64.tar.gz'
+  url64bit       = 'https://github.com/vmware-tanzu/velero/releases/download/v1.5.3/velero-v1.5.3-windows-amd64.tar.gz'
 }
 
 # Cleanup previous installs
