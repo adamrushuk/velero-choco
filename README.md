@@ -2,7 +2,7 @@
 
 # velero-choco
 
-Creates a Chocolatey package for Velero CLI.
+Creates the [Chocolatey package for Velero CLI](https://community.chocolatey.org/packages/velero).
 
 ## Register
 
