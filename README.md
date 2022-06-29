@@ -31,7 +31,7 @@ choco new --name velero --version=<VERSION> --maintainer="Adam Rush"
 ## Modify package files
 
 1. Edit the `velero/velero.nuspec` configuration file, ensuring correct `<version>` and other metadata.
-1. Edit the `velero/tools/chocolateyinstall.ps1` install script, ensuring the `$version` and `$packageArgs.checksum64` vars are correct.
+1. Edit the `velero/tools/chocolateyinstall.ps1` install script, ensuring the `$version` and `$packageArgs.checksum64` vars are correct for "windows-amd64".
 
 ## Create NuGet package
 
