@@ -1,14 +1,14 @@
 # Installs velero from a .tar.gz download link
-# download CHECKSUM (search for "windows-amd64") and assets: https://github.com/vmware-tanzu/velero/releases
+# download CHECKSUM (search for "windows") and assets: https://github.com/vmware-tanzu/velero/releases
 
 $ErrorActionPreference = 'Stop'
 
 # vars
 $packageName = 'velero'
-$version = '1.9.3'
+$version = '1.10.0'
 $toolsDir = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 $packageArgs = @{
-  checksum64     = '0f3fb0ecc0b99aba2e8a6e4f1a46cb591cf5bf00536180b46aac7e584b2bffcf'
+  checksum64     = '99a6c8662e1b0045cc1f2f9ab830249522875b036a335632a283e73d925a12c6'
   checksumType64 = 'sha256'
   packageName    = $packageName
   unzipLocation  = $toolsDir
