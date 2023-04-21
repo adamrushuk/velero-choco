@@ -22,7 +22,7 @@ Velero consists of:
 * A command-line client that runs locally</description>
     <summary>Backup and migrate Kubernetes applications and their persistent volumes</summary>
     <releaseNotes>https://github.com/vmware-tanzu/velero/releases</releaseNotes>
-    <copyright>(c) 2022 Velero Authors</copyright>
+    <copyright>(c) 2023 Velero Authors</copyright>
     <tags>velero kubernetes backup disaster-recovery</tags>
     <projectSourceUrl>https://github.com/vmware-tanzu/velero</projectSourceUrl>
     <packageSourceUrl>https://github.com/adamrushuk/velero-choco</packageSourceUrl>
