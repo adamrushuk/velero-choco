@@ -20,7 +20,7 @@ Search for the Windows binary, named `velero-v<VERSION>-windows-amd64.tar.gz`
 
 ## Create new package files
 
-```powershell
+```bash
 # view help
 choco new -h
 
@@ -35,7 +35,7 @@ choco new --name velero --version=<VERSION> --maintainer="Adam Rush"
 
 ## Create NuGet package
 
-```powershell
+```bash
 # view help
 choco pack -h
 
@@ -45,7 +45,7 @@ choco pack
 
 ## Test local install / uninstall
 
-```powershell
+```bash
 # view help
 choco install -h
 
@@ -65,7 +65,7 @@ choco uninstall velero
 
 ## Publish NuGet package to Chocolatey
 
-```powershell
+```bash
 # copy your API Key from the My Account page: https://chocolatey.org/account/
 choco apikey --key <YOUR_API_KEY> --source https://push.chocolatey.org/
 
