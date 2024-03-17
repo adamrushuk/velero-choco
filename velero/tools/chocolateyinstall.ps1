@@ -5,10 +5,10 @@ $ErrorActionPreference = 'Stop'
 
 # vars
 $packageName = 'velero'
-$version = '1.13.0'
+$version = '1.13.1'
 $toolsDir = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 $packageArgs = @{
-  checksum64     = '561abfb4c4645874970dd4cd9510f7774d57f811b6eedd5a32b43dc5e4a76bf6'
+  checksum64     = '70592e56f992c3d54d95de83b943090081f39b2c16bc7e128dbed1317da96112'
   checksumType64 = 'sha256'
   packageName    = $packageName
   unzipLocation  = $toolsDir
