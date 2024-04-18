@@ -12,8 +12,8 @@ Creates the [Chocolatey package for Velero CLI](https://community.chocolatey.org
   - [Register](#register)
   - [Api Key](#api-key)
 - [Update Velero Package For Chocolatey](#update-velero-package-for-chocolatey)
-  - [Check Github Releases For Latest Version](#check-github-releases-for-latest-version)
-    - [Automated Method](#automated-method)
+  - [Check Github Releases For Latest Windows Version / Checksum](#check-github-releases-for-latest-windows-version--checksum)
+    - [PowerShell Method](#powershell-method)
     - [Manual Method](#manual-method)
   - [Create New Package Files](#create-new-package-files)
   - [Modify Package Files](#modify-package-files)
@@ -34,9 +34,14 @@ Copy your API Key from your [Account > Get API key](https://community.chocolatey
 
 ## Update Velero Package For Chocolatey
 
-### Check Github Releases For Latest Version
+### Check Github Releases For Latest Windows Version / Checksum
 
-#### Automated Method
+The Chocolatey installation script requires the correct download URL and checksum for the Windows version of
+Velero.
+
+Use either the PowerShell or manual method below:
+
+#### PowerShell Method
 
 ```powershell
 # Get the latest release of Velero
@@ -58,9 +63,9 @@ if ($match) {
 
 #### Manual Method
 
-The latest release is listed here: https://github.com/vmware-tanzu/velero/releases
-
-Search for the Windows binary, named `velero-v<VERSION>-windows-amd64.tar.gz`
+1. The latest release is listed here: <https://github.com/vmware-tanzu/velero/releases/latest>
+1. Search for the `velero-v<VERSION>-windows-amd64.tar.gz` Windows binary asset, and note the download URL.
+1. Download the `CHECKSUM` asset and note the checksum value for `velero-v<VERSION>-windows-amd64.tar.gz`.
 
 ### Create New Package Files
 
@@ -77,6 +82,7 @@ choco new --name velero --version=<VERSION> --maintainer="Adam Rush"
 1. Edit the `velero/velero.nuspec` configuration file, ensuring correct `<version>` and other metadata.
 1. Edit the `velero/tools/chocolateyinstall.ps1` install script, ensuring the `$version` and
    `$packageArgs.checksum64` vars are correct for `windows-amd64`.
+1. `$packageArgs.url64bit` may need to be updated if the asset name or download URL changes.
 
 ### Create Nuget Package
 
