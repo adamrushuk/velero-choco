@@ -6,20 +6,22 @@
     <title>Velero CLI</title>
     <authors>vmware-tanzu</authors>
     <owners>Adam Rush</owners>
-    <licenseUrl>https://github.com/vmware-tanzu/velero/blob/master/LICENSE</licenseUrl>
+    <licenseUrl>https://github.com/vmware-tanzu/velero/blob/main/LICENSE</licenseUrl>
     <projectUrl>https://velero.io/</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/adamrushuk/velero-choco/master/velero-icon.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/adamrushuk/velero-choco/main/velero-icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Velero (formerly Heptio Ark) gives you tools to back up and restore your Kubernetes cluster resources and persistent volumes. You can run Velero with a public cloud platform or on-premises. Velero lets you:
+    <description>Velero (formerly Heptio Ark) gives you tools to back up and restore your Kubernetes
+      cluster resources and persistent volumes. You can run Velero with a public cloud platform or
+      on-premises. Velero lets you:
 
-* Take backups of your cluster and restore in case of loss.
-* Migrate cluster resources to other clusters.
-* Replicate your production cluster to development and testing clusters.
+      * Take backups of your cluster and restore in case of loss.
+      * Migrate cluster resources to other clusters.
+      * Replicate your production cluster to development and testing clusters.
 
-Velero consists of:
+      Velero consists of:
 
-* A server that runs on your cluster
-* A command-line client that runs locally</description>
+      * A server that runs on your cluster
+      * A command-line client that runs locally</description>
     <summary>Backup and migrate Kubernetes applications and their persistent volumes</summary>
     <releaseNotes>https://github.com/vmware-tanzu/velero/releases</releaseNotes>
     <copyright>(c) 2025 Velero Authors</copyright>

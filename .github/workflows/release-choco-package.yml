@@ -3,7 +3,7 @@ name: Release Chocolatey Package
 on:
   push:
     branches:
-      - master
+      - main
 
 env:
   CHOCO_PACKAGE_NAME: velero
