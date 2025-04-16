@@ -1,7 +1,8 @@
-![Velero Logo](velero-icon.png "Velero Logo")
 
 <!-- omit from toc -->
 # velero-choco
+
+![Velero Logo](velero-icon.png "Velero Logo")
 
 Creates the [Chocolatey package for Velero CLI](https://community.chocolatey.org/packages/velero).
 
