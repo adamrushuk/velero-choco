@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>velero</id>
-    <version>1.16.0</version>
+    <version>1.16.1</version>
     <title>Velero CLI</title>
     <authors>vmware-tanzu</authors>
     <owners>Adam Rush</owners>
