@@ -118,3 +118,4 @@ jobs:
             The checksum has been automatically extracted from the official Velero release.
           branch: update-velero-${{ steps.get-release.outputs.version }}
           delete-branch: true
+          draft: true
