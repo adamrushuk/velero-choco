@@ -114,6 +114,8 @@ jobs:
       - name: Create Pull Request
         if: steps.check-update.outputs.update_needed == 'true'
         shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh pr create `
             --title "Updated Velero to ${{ steps.get-release.outputs.version }}" `
