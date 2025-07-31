@@ -97,23 +97,27 @@ jobs:
 
           Write-Output "Updated chocolateyinstall.ps1 to version $version with checksum $checksum"
 
+      - name: Commit and Push Changes
+        if: steps.check-update.outputs.update_needed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Updated Velero to ${{ steps.get-release.outputs.version }}"
+          git push origin HEAD:update-velero-${{ steps.get-release.outputs.version }}
+
       - name: Create Pull Request
         if: steps.check-update.outputs.update_needed == 'true'
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Updated Velero to ${{ steps.get-release.outputs.version }}"
-          title: "Updated Velero to ${{ steps.get-release.outputs.version }}"
-          body: |
-            This PR updates Velero to version ${{ steps.get-release.outputs.version }}.
+        run: |
+          gh pr create \
+            --title "Updated Velero to ${{ steps.get-release.outputs.version }}" \
+            --body "This PR updates Velero to version ${{ steps.get-release.outputs.version }}.
 
-            Changes made:
-            - Updated version in `velero/velero.nuspec`
-            - Updated version and checksum in `velero/tools/chocolateyinstall.ps1`
+          Changes made:
+          - Updated version in \`velero/velero.nuspec\`
+          - Updated version and checksum in \`velero/tools/chocolateyinstall.ps1\`
 
-            The checksum has been automatically extracted from the official Velero release.
-          branch: update-velero-${{ steps.get-release.outputs.version }}
-          delete-branch: true
-          labels: |
-            automated
-            velero-update
+          The checksum has been automatically extracted from the official Velero release." \
+            --base main \
+            --head update-velero-${{ steps.get-release.outputs.version }} \
+            --label "automated,velero-update"
