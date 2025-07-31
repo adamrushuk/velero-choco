@@ -1,9 +1,11 @@
 name: Release Chocolatey Package
 
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches:
       - main
+  workflow_dispatch:
 
 env:
   CHOCO_PACKAGE_NAME: velero
@@ -12,6 +14,8 @@ env:
 
 jobs:
   release-choco-package:
+    # Only run if PR was merged (not just closed)
+    if: github.event.pull_request.merged == true
     # https://github.com/actions/virtual-environments
     runs-on: windows-2022
     steps:
