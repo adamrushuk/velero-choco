@@ -106,6 +106,8 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          delete-branch: true
+          draft: true
           commit-message: "Updated Velero to ${{ steps.get-release.outputs.version }}"
           title: "Updated Velero to ${{ steps.get-release.outputs.version }}"
           body: |
@@ -117,5 +119,3 @@ jobs:
 
             The checksum has been automatically extracted from the official Velero release.
           branch: update-velero-${{ steps.get-release.outputs.version }}
-          delete-branch: true
-          draft: true
