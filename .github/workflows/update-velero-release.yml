@@ -112,12 +112,13 @@ jobs:
           git push origin HEAD:update-velero-${{ steps.get-release.outputs.version }}
 
       - name: Create Pull Request
+        id: create-pull-request
         if: steps.check-update.outputs.update_needed == 'true'
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh pr create `
+          $pr = gh pr create `
             --title "Updated Velero to ${{ steps.get-release.outputs.version }}" `
             --body "This PR updates Velero to version ${{ steps.get-release.outputs.version }}.
 
@@ -128,4 +129,18 @@ jobs:
           The checksum has been automatically extracted from the official Velero release." `
             --base main `
             --head update-velero-${{ steps.get-release.outputs.version }} `
-            --label "automated,velero-update"
+            --label "automated,velero-update" `
+            --json number,url
+
+          $prNumber = ($pr | ConvertFrom-Json).number
+          Write-Output "Created PR #$prNumber"
+          echo "pr_number=$prNumber" >> $env:GITHUB_OUTPUT
+
+      - name: Trigger Test Workflow
+        if: steps.check-update.outputs.update_needed == 'true'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          Write-Output "Triggering test workflow for PR #${{ steps.create-pull-request.outputs.pr_number }}"
+          gh workflow run test-choco-package.yml --ref update-velero-${{ steps.get-release.outputs.version }}
