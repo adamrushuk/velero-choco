@@ -88,7 +88,7 @@ jobs:
           $content = Get-Content $installPath -Raw
 
           # Update version (line 8)
-          $content = $content -replace "`$version = '[^']*'", "`$version = '$version'"
+          $content = $content -replace '\$version = ''[^'']*''', "`$version = '$version'"
 
           # Update checksum (preserve the exact spacing)
           $content = $content -replace "checksum64\s*=\s*'[^']*'", "checksum64     = '$checksum'"
