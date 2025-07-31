@@ -1,0 +1,119 @@
+name: Update Velero Release
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Run weekly on Mondays at 9 AM UTC
+    - cron: '0 9 * * 1'
+
+jobs:
+  update-velero-release:
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get Latest Velero Release Details
+        id: get-release
+        run: |
+          # Get the latest release of Velero
+          $veleroReleases = Invoke-RestMethod -Uri 'https://api.github.com/repos/vmware-tanzu/velero/releases'
+          $latestRelease = $veleroReleases[0]
+
+          # Extract version (remove 'v' prefix)
+          $version = $latestRelease.tag_name -replace '^v', ''
+
+          # Get the CHECKSUM asset content
+          $checksumAsset = $latestRelease.assets | Where-Object { $_.name -eq 'CHECKSUM' }
+          $checksumAssetUrl = $checksumAsset.browser_download_url
+          $checksumAssetContent = Invoke-RestMethod -Uri $checksumAssetUrl
+
+          # Get the CHECKSUM value for the Windows Velero release
+          $match = $checksumAssetContent | Select-String -Pattern '(.*)(?=  .*-windows-amd64.tar.gz)'
+          if ($match) {
+              $windowsAssetChecksum = $match.Matches[0].Value.Trim()
+              Write-Output "Found version: $version"
+              Write-Output "Found checksum: $windowsAssetChecksum"
+
+              # Set output variables for next steps
+              echo "version=$version" >> $env:GITHUB_OUTPUT
+              echo "checksum=$windowsAssetChecksum" >> $env:GITHUB_OUTPUT
+          } else {
+              Write-Error "Could not find Windows checksum in CHECKSUM file"
+              exit 1
+          }
+
+      - name: Check if update is needed
+        id: check-update
+        run: |
+          # Read current version from nuspec
+          [xml]$spec = Get-Content 'velero/velero.nuspec'
+          $currentVersion = $spec.package.metadata.version
+
+          $latestVersion = '${{ steps.get-release.outputs.version }}'
+
+          Write-Output "Current version: $currentVersion"
+          Write-Output "Latest version: $latestVersion"
+
+          if ($currentVersion -eq $latestVersion) {
+              Write-Output "No update needed - versions match"
+              echo "update_needed=false" >> $env:GITHUB_OUTPUT
+          } else {
+              Write-Output "Update needed - versions differ"
+              echo "update_needed=true" >> $env:GITHUB_OUTPUT
+          }
+
+      - name: Update velero.nuspec
+        if: steps.check-update.outputs.update_needed == 'true'
+        run: |
+          $version = '${{ steps.get-release.outputs.version }}'
+
+          # Update version in nuspec file
+          $nuspecPath = 'velero/velero.nuspec'
+          [xml]$spec = Get-Content $nuspecPath
+          $spec.package.metadata.version = $version
+          $spec.Save($nuspecPath)
+
+          Write-Output "Updated velero.nuspec to version $version"
+
+      - name: Update chocolateyinstall.ps1
+        if: steps.check-update.outputs.update_needed == 'true'
+        run: |
+          $version = '${{ steps.get-release.outputs.version }}'
+          $checksum = '${{ steps.get-release.outputs.checksum }}'
+
+          # Update version and checksum in chocolateyinstall.ps1
+          $installPath = 'velero/tools/chocolateyinstall.ps1'
+          $content = Get-Content $installPath -Raw
+
+          # Update version
+          $content = $content -replace "`$version = '.*'", "`$version = '$version'"
+
+          # Update checksum
+          $content = $content -replace "checksum64\s*=\s*'.*'", "checksum64     = '$checksum'"
+
+          Set-Content -Path $installPath -Value $content
+
+          Write-Output "Updated chocolateyinstall.ps1 to version $version with checksum $checksum"
+
+      - name: Create Pull Request
+        if: steps.check-update.outputs.update_needed == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Updated Velero to ${{ steps.get-release.outputs.version }}"
+          title: "Updated Velero to ${{ steps.get-release.outputs.version }}"
+          body: |
+            This PR updates Velero to version ${{ steps.get-release.outputs.version }}.
+
+            Changes made:
+            - Updated version in `velero/velero.nuspec`
+            - Updated version and checksum in `velero/tools/chocolateyinstall.ps1`
+
+            The checksum has been automatically extracted from the official Velero release.
+          branch: update-velero-${{ steps.get-release.outputs.version }}
+          delete-branch: true
+          labels: |
+            automated
+            velero-update
