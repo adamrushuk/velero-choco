@@ -87,11 +87,11 @@ jobs:
           $installPath = 'velero/tools/chocolateyinstall.ps1'
           $content = Get-Content $installPath -Raw
 
-          # Update version
-          $content = $content -replace "`$version = '.*'", "`$version = '$version'"
+          # Update version (line 8)
+          $content = $content -replace "`$version = '[^']*'", "`$version = '$version'"
 
-          # Update checksum
-          $content = $content -replace "checksum64\s*=\s*'.*'", "checksum64     = '$checksum'"
+          # Update checksum (preserve the exact spacing)
+          $content = $content -replace "checksum64\s*=\s*'[^']*'", "checksum64     = '$checksum'"
 
           Set-Content -Path $installPath -Value $content
 
