@@ -18,15 +18,28 @@ jobs:
         id: get-release
         shell: pwsh
         run: |
-          # Get the latest release of Velero
+          # Get all releases of Velero
           $veleroReleases = Invoke-RestMethod -Uri 'https://api.github.com/repos/vmware-tanzu/velero/releases'
-          $latestRelease = $veleroReleases[0]
+
+          # Find the latest stable (non-prerelease) release
+          $latestStableRelease = $null
+          foreach ($release in $veleroReleases) {
+              if (-not $release.prerelease) {
+                  $latestStableRelease = $release
+                  break
+              }
+          }
+
+          if (-not $latestStableRelease) {
+              Write-Error "No stable release found"
+              exit 1
+          }
 
           # Extract version (remove 'v' prefix)
-          $version = $latestRelease.tag_name -replace '^v', ''
+          $version = $latestStableRelease.tag_name -replace '^v', ''
 
           # Get the CHECKSUM asset content
-          $checksumAsset = $latestRelease.assets | Where-Object { $_.name -eq 'CHECKSUM' }
+          $checksumAsset = $latestStableRelease.assets | Where-Object { $_.name -eq 'CHECKSUM' }
           $checksumAssetUrl = $checksumAsset.browser_download_url
           $checksumAssetContent = Invoke-RestMethod -Uri $checksumAssetUrl
 
@@ -34,7 +47,7 @@ jobs:
           $match = $checksumAssetContent | Select-String -Pattern '(.*)(?=  .*-windows-amd64.tar.gz)'
           if ($match) {
               $windowsAssetChecksum = $match.Matches[0].Value.Trim()
-              Write-Output "Found version: $version"
+              Write-Output "Found stable version: $version"
               Write-Output "Found checksum: $windowsAssetChecksum"
 
               # Set output variables for next steps
