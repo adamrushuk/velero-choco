@@ -4,7 +4,8 @@
 
 ![Velero Logo](velero-icon.png "Velero Logo")
 
-Creates the [Chocolatey package for Velero CLI](https://community.chocolatey.org/packages/velero).
+Creates the [Chocolatey package for Velero CLI](https://community.chocolatey.org/packages/velero) for
+[Velero](https://github.com/vmware-tanzu/velero).
 
 <!-- omit from toc -->
 ## Content
