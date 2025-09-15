@@ -1,10 +1,10 @@
-name: Update Velero Release
+name: Check and Update Velero Release
 
 on:
   workflow_dispatch:
   schedule:
-    # Run weekly on Mondays at 9 AM UTC
-    - cron: '0 9 * * 1'
+    # Run daily at noon UTC
+    - cron: '0 12 * * *'
 
 jobs:
   update-velero-release:
