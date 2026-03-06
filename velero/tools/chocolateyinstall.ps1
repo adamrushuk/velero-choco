@@ -5,10 +5,10 @@ $ErrorActionPreference = 'Stop'
 
 # vars
 $packageName = 'velero'
-$version = '1.17.2'
+$version = '1.18.0'
 $toolsDir = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 $packageArgs = @{
-  checksum64     = '5e5011d6a6ab3efddb7cdc63ceef5a2198de7f5de32ed76ea7584d2446b8205d'
+  checksum64     = 'e2f61861ea13daca7301d9058d4aecb6a9b0435ddc7c27637333b4d4142b2577'
   checksumType64 = 'sha256'
   packageName    = $packageName
   unzipLocation  = $toolsDir
@@ -24,6 +24,7 @@ Install-ChocolateyZipPackage @packageArgs
 # Untar binary
 $file = Get-ChildItem -File -Path $env:ChocolateyInstall\lib\$packageName\tools\ -Filter *.tar
 Get-ChocolateyUnzip -fileFullPath $file.FullName -destination $env:ChocolateyInstall\lib\$packageName\tools\
+
 
 
 
