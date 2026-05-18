@@ -17,18 +17,18 @@ jobs:
       - name: Get Latest Velero Release Details
         id: get-release
         shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
-          # Get all releases of Velero
-          $veleroReleases = Invoke-RestMethod -Uri 'https://api.github.com/repos/vmware-tanzu/velero/releases'
-
-          # Find the latest stable (non-prerelease) release
-          $latestStableRelease = $null
-          foreach ($release in $veleroReleases) {
-              if (-not $release.prerelease) {
-                  $latestStableRelease = $release
-                  break
-              }
+          $headers = @{
+            Accept                 = 'application/vnd.github+json'
+            Authorization          = "Bearer $env:GITHUB_TOKEN"
+            'X-GitHub-Api-Version' = '2022-11-28'
+            'User-Agent'           = 'velero-choco-release-updater'
           }
+
+          # Get latest stable (non-prerelease, non-draft) release of Velero
+          $latestStableRelease = Invoke-RestMethod -Uri 'https://api.github.com/repos/vmware-tanzu/velero/releases/latest' -Headers $headers
 
           if (-not $latestStableRelease) {
               Write-Error "No stable release found"
